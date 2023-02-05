@@ -1,0 +1,41 @@
+int ledPin = 8;
+void setup(){
+   	Serial.begin(9600);
+  pinMode(A0, INPUT);
+  pinMode(7, OUTPUT);
+  pinMode(6, OUTPUT);
+  pinMode(ledPin,OUTPUT);
+}
+
+
+void loop(){
+ 	float tempc = ((analogRead(A0)*(5.0/1024))-0.5)/0.01;
+    digitalWrite(ledPin,LOW);
+  
+  if (tempc >= 50){
+    digitalWrite(6, HIGH);
+  	digitalWrite(ledPin,HIGH);
+    digitalWrite(7,HIGH);
+    Serial.println("Alerta");
+  }
+  
+  if ((tempc <= 30) || ( tempc <50)){
+    digitalWrite(6, HIGH);
+   	digitalWrite(ledPin,LOW);
+    digitalWrite(7,LOW);
+    Serial.print("Ventilador Ligado ");
+  }
+  
+  if (tempc <= 30){
+    digitalWrite(6, LOW);
+   	digitalWrite(ledPin,LOW);
+    digitalWrite(7,LOW);
+    Serial.print("Condicoes normais ");
+  }
+    
+  	Serial.print("Temperatura: ");
+  	Serial.print(tempc);
+  	Serial.println("°C");
+  	delay(1000);
+  
+}
